@@ -3,7 +3,7 @@ from nhlscrapi._tools import to_int
 from nhlscrapi._tools import split_time
 from nhlscrapi._tools import exclude_from as ex_junk
 
-from nhlscrapi.games.plays import Strength
+from nhlscrapi.games.playbyplay import Strength
 
 from nhlscrapi.scrapr.reportloader import ReportLoader
 from nhlscrapi.scrapr.teamnameparser import team_abbr_parser
@@ -59,16 +59,18 @@ class GameSummRep(ReportLoader):
           'home': self.__skaters(sks[0]),
           'away': self.__skaters(sks[1])
         }
-        
-        
-        scorer = self.__scorer(scr[5][0])
-        if scorer['num'] in goals[gn][
+
+        # Brian: Fixing issue with syntax, need to revisit the following block of code
+        #        to ensure that the logic is correct
         assists = []
-        for s in scr[6:8]:
-          if s and s[0] != u'\xa0':
-            print s[0], self.__scorer(s[0])
-            assists.append(self.__scorer(s[0]))
-          
+        scorer = self.__scorer(scr[5][0])
+        if scorer['num'] in goals[gn]:
+          for s in scr[6:8]:
+            if s and s[0] != u'\xa0':
+              print s[0], self.__scorer(s[0])
+              assists.append(self.__scorer(s[0]))
+        # EndBrian
+
         print {
           'goal_num': gn,
           'scorer': scorer,

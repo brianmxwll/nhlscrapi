@@ -9,6 +9,7 @@ from nhlscrapi.games.rosters import Rosters
 from nhlscrapi.games.playbyplay import PlayByPlay
 from nhlscrapi.games.faceoffcomp import FaceOffComparison
 from nhlscrapi.games.eventsummary import EventSummary
+from nhlscrapi.games.gamesummary import GameSummary
 
 
 """Enum denoting whether the game is regular season or playoff"""
@@ -121,7 +122,7 @@ class Game(object):
         self.rosters = Rosters(self.game_key)
         """The :py:class:`.Rosters` summary"""
         
-        #self.summary = GameSummary(game_key)
+        self.game_summary = GameSummary(game_key)
         
         self.face_off_comp = FaceOffComparison(self.game_key)
         """The :py:class:`.FaceOffComparison` summary"""
